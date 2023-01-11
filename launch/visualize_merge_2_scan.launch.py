@@ -17,10 +17,10 @@ def generate_launch_description():
     pointCloutFrameId = LaunchConfiguration('pointCloutFrameId', default="laser")
     
     #parameter for the first laserscan, feel free to duplicate and rename for other laserscans
-    scanTopic1 = LaunchConfiguration('scanTopic1', default="A2/scan")
-    laser1XOff = LaunchConfiguration('laser1XOff', default=0.0)
-    laser1YOff = LaunchConfiguration('laser1YOff', default=0.0)
-    laser1ZOff = LaunchConfiguration('laser1ZOff', default=0.1)
+    scanTopic1 = LaunchConfiguration('scanTopic1', default="camera_front/scan")
+    laser1XOff = LaunchConfiguration('laser1XOff', default="${camera_front_offset_x}")
+    laser1YOff = LaunchConfiguration('laser1YOff', default="${camera_front_offset_y}")
+    laser1ZOff = LaunchConfiguration('laser1ZOff', default="${camera_front_offset_z}")
     laser1Alpha = LaunchConfiguration('laser1Alpha', default=0.0)
     laser1AngleMin = LaunchConfiguration('laser1AngleMin', default=-181.0)
     laser1AngleMax = LaunchConfiguration('laser1AngleMax', default=181.0)
@@ -30,10 +30,10 @@ def generate_launch_description():
     show1 = LaunchConfiguration('show1', default=True)
 
     #parameter for the second laserscan, feel free to duplicate and rename for other laserscans
-    scanTopic2 = LaunchConfiguration('scanTopic2', default="S1/scan")
-    laser2XOff = LaunchConfiguration('laser2XOff', default=0.0)
-    laser2YOff = LaunchConfiguration('laser2YOff', default=0.0)
-    laser2ZOff = LaunchConfiguration('laser2ZOff', default=0.2)
+    scanTopic2 = LaunchConfiguration('scanTopic2', default="camera_rear/scan")
+    laser2XOff = LaunchConfiguration('laser2XOff', default="${camera_rear_offset_x}")
+    laser2YOff = LaunchConfiguration('laser2YOff', default="${camera_rear_offset_y}")
+    laser2ZOff = LaunchConfiguration('laser2ZOff', default="${camera_rear_offset_z}")
     laser2Alpha = LaunchConfiguration('laser2Alpha', default=0.0)
     laser2AngleMin = LaunchConfiguration('laser2AngleMin', default=-181.0)
     laser2AngleMax = LaunchConfiguration('laser2AngleMax', default=181.0)

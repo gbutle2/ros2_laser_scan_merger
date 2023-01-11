@@ -350,7 +350,7 @@ class scanMerger : public rclcpp::Node
     void initialize_params(){
         
         this->declare_parameter("pointCloudTopic","base/custom_cloud");
-        this->declare_parameter("pointCloutFrameId","laser");
+        this->declare_parameter("pointCloudFrameId","laser");
 
         this->declare_parameter("scanTopic1","lidar_front_right/scan");
         this->declare_parameter("laser1XOff",-0.45);
@@ -379,7 +379,7 @@ class scanMerger : public rclcpp::Node
     }
     void refresh_params(){
         this->get_parameter_or<std::string>("pointCloudTopic", cloudTopic_, "pointCloud");
-        this->get_parameter_or<std::string>("pointCloutFrameId",cloudFrameId_, "laser");
+        this->get_parameter_or<std::string>("pointCloudFrameId",cloudFrameId_, "laser");
         this->get_parameter_or<std::string>("scanTopic1",topic1_ ,"lidar_front_right/scan");
         this->get_parameter_or<float>("laser1XOff",laser1XOff_, 0.0);
         this->get_parameter_or<float>("laser1YOff",laser1YOff_, 0.0);
