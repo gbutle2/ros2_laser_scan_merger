@@ -48,6 +48,7 @@ class scanMerger : public rclcpp::Node
     }
     void scan_callback2(const sensor_msgs::msg::LaserScan::SharedPtr _msg) {
         laser2_ = _msg;
+        // update_point_cloud_2();
         // RCLCPP_INFO(this->get_logger(), "I heard: '%f' '%f'", _msg->ranges[0],
         //         _msg->ranges[100]);
     }
@@ -349,59 +350,59 @@ class scanMerger : public rclcpp::Node
     }
     void initialize_params(){
         
-        this->declare_parameter("pointCloudTopic","base/custom_cloud");
-        this->declare_parameter("pointCloudFrameId","laser");
+        this->declare_parameter("pointCloudTopic","camera/scan");
+        this->declare_parameter("pointCloudFrameId","base_link");
 
-        this->declare_parameter("scanTopic1","lidar_front_right/scan");
-        this->declare_parameter("laser1XOff",-0.45);
-        this->declare_parameter("laser1YOff",0.24);
-        this->declare_parameter("laser1ZOff",0.0);
-        this->declare_parameter("laser1Alpha",45.0);
-        this->declare_parameter("laser1AngleMin",-181.0);
-        this->declare_parameter("laser1AngleMax",181.0);
-        this->declare_parameter("laser1R",255);
+        this->declare_parameter("scanTopic1","camera_front/scan");
+        this->declare_parameter("laser1XOff",0.0385);
+        this->declare_parameter("laser1YOff",0.0);
+        this->declare_parameter("laser1ZOff",0.1015);
+        this->declare_parameter("laser1Alpha",0.0);
+        this->declare_parameter("laser1AngleMin",-180.0);
+        this->declare_parameter("laser1AngleMax",180.0);
+        this->declare_parameter("laser1R",0);
         this->declare_parameter("laser1G",0);
         this->declare_parameter("laser1B",0);
         this->declare_parameter("show1",true);
 
-        this->declare_parameter("scanTopic2","lidar_rear_left/scan");
-        this->declare_parameter("laser2XOff",0.315);
-        this->declare_parameter("laser2YOff",-0.24);
-        this->declare_parameter("laser2ZOff",0.0);
-        this->declare_parameter("laser2Alpha",225.0);
-        this->declare_parameter("laser2AngleMin",-181.0);
-        this->declare_parameter("laser2AngleMax",181.0);
+        this->declare_parameter("scanTopic2","camera_rear/scan");
+        this->declare_parameter("laser2XOff",-0.8645);
+        this->declare_parameter("laser2YOff",0.0);
+        this->declare_parameter("laser2ZOff",0.1015);
+        this->declare_parameter("laser2Alpha",180.0);
+        this->declare_parameter("laser2AngleMin",-180.0);
+        this->declare_parameter("laser2AngleMax",180.0);
         this->declare_parameter("laser2R",0);
         this->declare_parameter("laser2G",0);
-        this->declare_parameter("laser2B",255);
+        this->declare_parameter("laser2B",0);
         this->declare_parameter("show2",true);
 
     }
     void refresh_params(){
-        this->get_parameter_or<std::string>("pointCloudTopic", cloudTopic_, "pointCloud");
-        this->get_parameter_or<std::string>("pointCloudFrameId",cloudFrameId_, "laser");
-        this->get_parameter_or<std::string>("scanTopic1",topic1_ ,"lidar_front_right/scan");
-        this->get_parameter_or<float>("laser1XOff",laser1XOff_, 0.0);
+        this->get_parameter_or<std::string>("pointCloudTopic", cloudTopic_, "camera/scan");
+        this->get_parameter_or<std::string>("pointCloudFrameId",cloudFrameId_, "base_link");
+        this->get_parameter_or<std::string>("scanTopic1",topic1_ ,"camera_front/scan");
+        this->get_parameter_or<float>("laser1XOff",laser1XOff_, 0.0385);
         this->get_parameter_or<float>("laser1YOff",laser1YOff_, 0.0);
-        this->get_parameter_or<float>("laser1ZOff",laser1ZOff_, 0.0);
+        this->get_parameter_or<float>("laser1ZOff",laser1ZOff_, 0.1015);
         this->get_parameter_or<float>("laser1Alpha",laser1Alpha_, 0.0);
-        this->get_parameter_or<float>("laser1AngleMin",laser1AngleMin_, -181.0);
-        this->get_parameter_or<float>("laser1AngleMax",laser1AngleMax_, 181.0);
+        this->get_parameter_or<float>("laser1AngleMin",laser1AngleMin_, -180.0);
+        this->get_parameter_or<float>("laser1AngleMax",laser1AngleMax_, 180.0);
         this->get_parameter_or<uint8_t>("laser1R",laser1R_, 0);
         this->get_parameter_or<uint8_t>("laser1G",laser1G_, 0);
         this->get_parameter_or<uint8_t>("laser1B",laser1B_, 0);
         this->get_parameter_or<bool>("show1",show1_, true);
-        this->get_parameter_or<std::string>("scanTopic2",topic2_, "lidar_rear_left/scan");
-        this->get_parameter_or<float>("laser2XOff",laser2XOff_, 0.0);
+        this->get_parameter_or<std::string>("scanTopic2",topic2_, "camera_rear/scan");
+        this->get_parameter_or<float>("laser2XOff",laser2XOff_, -0.8645);
         this->get_parameter_or<float>("laser2YOff",laser2YOff_, 0.0);
-        this->get_parameter_or<float>("laser2ZOff",laser2ZOff_, 0.0);
-        this->get_parameter_or<float>("laser2Alpha",laser2Alpha_, 0.0);
-        this->get_parameter_or<float>("laser2AngleMin",laser2AngleMin_,-181.0);
-        this->get_parameter_or<float>("laser2AngleMax",laser2AngleMax_, 181.0);
+        this->get_parameter_or<float>("laser2ZOff",laser2ZOff_, 0.1015);
+        this->get_parameter_or<float>("laser2Alpha",laser2Alpha_, 180.0);
+        this->get_parameter_or<float>("laser2AngleMin",laser2AngleMin_,-180.0);
+        this->get_parameter_or<float>("laser2AngleMax",laser2AngleMax_, 180.0);
         this->get_parameter_or<uint8_t>("laser2R",laser2R_, 0);
         this->get_parameter_or<uint8_t>("laser2G",laser2G_, 0);
         this->get_parameter_or<uint8_t>("laser2B",laser2B_, 0);
-        this->get_parameter_or<bool>("show2",show2_, false);
+        this->get_parameter_or<bool>("show2",show2_, true);
 
         
     }
